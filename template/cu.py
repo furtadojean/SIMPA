@@ -23,34 +23,9 @@ class CU(component):
 
     def _compute(self):
         super()._compute()
-        #self.instr = ''
-        #self.rs1 = 0
-        #self.rs2 = 0
-        #self.rd = 0
-        #self.imm = 0
         self.reset()
         if self.input['stall'] == 1:
             return
-        '''
-        lw reg dist(addr)
-        lb reg dist(addr)
-        sw reg dist(addr)
-        sb reg dist(addr)
-        la reg name
-
-        asciz name "string"
-        word name value
-
-        pint reg
-        pstr reg
-
-        add reg reg reg
-        addi reg reg imm
-
-        beq reg reg label
-        j label
-        '''
-
 
         data = self.input['IF_IR']
         if data.instr in ['add', 'addi']:

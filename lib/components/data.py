@@ -42,12 +42,7 @@ class data:
 
     def add_dependent(self, dependent):
         self.dependents.add(dependent)
-        #if name not in self.dependents:
-            #self.dependents[name] = dependent
 
     def update_dependents(self):
         for dependent in self.dependents:
-            #print(type(dependent))
             dependent.update(self.data)
-        #for name in self.dependents:
-            #self.dependents[name].update(self.data)

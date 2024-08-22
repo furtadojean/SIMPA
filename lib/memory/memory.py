@@ -11,21 +11,10 @@ class memory:
 
     def read_word(self, address):
         value = self.memory[address//4].value
-        #if value == (False,):
-        #    err = EOFError()
-        #    err.args = ("EOF",)
-        #    raise err
         return value
-
-    #def read_byte(self, address):
-    #    return self.memory[address//4].value[address%4]
 
     def write_word(self, address, value):
         self.memory[address//4].value = value
-        #print(self)
-
-    #def write_byte(self, address, value):
-    #    self.memory[address//4].value[address%4] = value
 
     def __repr__(self):
         s = f"{self.name}\n"

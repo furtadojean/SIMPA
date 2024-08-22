@@ -14,7 +14,6 @@ class component_input:
         self.input[key] = value
 
     def update(self, data):
-        #print("DATA", self.input)
         self.input.update(data)
 
     def clean(self):
@@ -28,7 +27,6 @@ class component:
 
     def update(self, data):
         self.input.update(data)
-        #print("INPUT", self.input.input)
         try:
             self._compute()
         except Exception as e:
@@ -36,7 +34,6 @@ class component:
                 raise e
 
     def _compute(self):
-        #print("Updated: ", type(self))
         pass
 
     def add_dependency(self, dependency):

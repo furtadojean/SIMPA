@@ -17,12 +17,10 @@ def get_intermediate_register():
             self.input.update(data)
 
         def ready(self):
-            #self.data.data.update(self.input)
             self.data.clean()
             for key, value in self.input.input.items():
                 self.data._update_value(key, value)
             self.input.clean()
-            #print(self.data.data)
 
         def on_clock(self):
             self.data.update_dependents()

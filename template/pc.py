@@ -15,17 +15,11 @@ class PC(component):
         super()._compute()
         if self.input['EX_Branch'] == 1:
             self.address_tmp = self.input['EX_BranchTarget']
-            #self.data.update_value("addressTmp", self.input['EX_BranchTarget'])
         else:
             self.address_tmp = self.data.get_value("address") + 4
-            #self.data.update_value("addressTmp", self.data.get_value("address")+4)
 
         if self.input['stall'] == 1:
-            #self.data.update_value("addressTmp", self.data.get_value("address"))
             self.address_tmp = self.data.get_value("address")
-            #self.data.update_value("address", self.data.get_value("address"))
 
     def on_clock(self):
-        #self.data.update_value("address", self.data.get_value("addressTmp"))
-        #print(self.data.get_value("address"), self.address_tmp)
         self.data.update_value("address", self.address_tmp)

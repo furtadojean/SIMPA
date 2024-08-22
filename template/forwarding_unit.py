@@ -14,7 +14,6 @@ class forwarding_unit(component):
 
     def _compute(self):
         super()._compute()
-        #print(self.input.input)
         self.data.update_value("ForwardA", 'ID')
         self.data.update_value("ForwardB", 'ID')
         if self.input['EX_RegWrite'] == 1 and \
@@ -33,4 +32,3 @@ class forwarding_unit(component):
                 self.input['MEM_IR'].rd != 'zero' and \
                 self.input['MEM_IR'].rd == self.input['ID_IR'].rs2:
                     self.data.update_value("ForwardB", 'MEM')
-        #print("Forwarding Unit", self.data.data)

@@ -1,20 +1,3 @@
-'''
-lw reg dist(addr)
-lb reg dist(addr)
-sw reg dist(addr)
-sb reg dist(addr)
-la reg name
-
-asciz name "string"
-word name value
-
-pint reg
-pstr reg
-
-add reg reg reg
-addi reg reg imm
-'''
-
 from enum import Enum
 
 class instruction:

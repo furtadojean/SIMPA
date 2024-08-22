@@ -19,7 +19,6 @@ class print_unit(component):
         with io.StringIO() as buf, redirect_stdout(buf):
             if self.input['EX_Print'] == 1:
                 if self.input['EX_IR'].instr == 'pint':
-                    #print("PINT", self.input['EX_IR'].rs1, self.input['EX_ALUResult'])
                     try:
                         print(self.registers[self.input['EX_IR'].rs1])
                     except:

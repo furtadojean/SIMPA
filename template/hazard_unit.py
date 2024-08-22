@@ -15,7 +15,6 @@ class hazard_unit(component):
         if self.input['ID_MemRead'] == 1 and \
             (self.input['ID_IR'].rd == self.input['IF_IR'].rs1 or \
             self.input['ID_IR'].rd == self.input['IF_IR'].rs2):
-                #self.pc.update_value("PC", self.input['ID_PC'])
                 info = if_id.data
                 self.data.update_value("stall", 1)
                 if_id.data = info
