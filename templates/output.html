@@ -1,0 +1,15 @@
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+    <h2 class="text-xl font-semibold">Result</h2>
+    <pre id="result" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ result if result else '' }}</pre>
+</div>
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+    <h2 class="text-xl font-semibold">Execution Info</h2>
+    <pre id="execution_info" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ execution_info if execution_info else '' }}</pre>
+</div>
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+    <h2 class="text-xl font-semibold">Memory Info</h2>
+    <pre id="memory_info" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">
+        {{ memory_info if memory_info else '' }}
+    </pre>
+</div>
+
