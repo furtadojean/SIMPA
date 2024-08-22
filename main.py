@@ -29,7 +29,6 @@ async def read_root(request: Request):
 @app.post("/execute", response_class=HTMLResponse)
 async def execute_code(request: Request, code: str = Form(...)):
     result, execution_info, memory_info = run_simulator(code.split('\n'))
-    print(result, execution_info, memory_info)
 
     return templates.TemplateResponse(
         "output.html",
