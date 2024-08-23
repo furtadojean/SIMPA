@@ -31,7 +31,7 @@ class data:
             self.data[name] = value(self.data)
         else:
             self.data[name] = value
-    
+
     def update_value(self, name, value):
         self._update_value(name, value)
         self.update_dependents()

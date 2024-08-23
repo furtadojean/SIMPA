@@ -35,25 +35,19 @@ class CU(component):
             self.data.update_value("ALUOp", "sum")
             self.data.update_value("Print", 1)
 
-        if data.instr in ['lw', 'lb', 'sw', 'sb', 'la', 'addi']:
+        if data.instr in ['lw', 'sw', 'la', 'addi']:
             self.data.update_value("ALUSrc", "imm")
             self.data.update_value("ALUOp", "sum")
         else:
             self.data.update_value("ALUSrc", "reg")
 
-        if data.instr in ['lw', 'lb']:
+        if data.instr in ['lw']:
             self.data.update_value("MemRead", 1)
-        if data.instr in ['sw', 'sb']:
+        if data.instr in ['sw']:
             self.data.update_value("MemWrite", 1)
 
-        if data.instr in ['beq', 'j']:
-            self.data.update_value("Branch", 1)
-
-        if data.instr in ['beq']:
-            self.data.update_value("AluOp", "sub")
-
-        if data.instr in ['lw', 'lb', 'la', 'add', 'addi']:
+        if data.instr in ['lw', 'la', 'add', 'addi']:
             self.data.update_value("RegWrite", 1)
 
-        if data.instr in ['lw', 'lb']:
+        if data.instr in ['lw']:
             self.data.update_value("MemToReg", 1)

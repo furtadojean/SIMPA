@@ -29,6 +29,7 @@ class ALU(component):
                 B = self.input['MEM_LMD']
             else:
                 B = self.input['MEM_ALUResult']
+        self.data.update_value("MemData", B)
         if self.input['ID_ALUSrc'] == 'imm':
             B = self.input['ID_imm']
 
@@ -39,4 +40,3 @@ class ALU(component):
                 self.data.update_value("ALUResult", A - B)
         except:
             pass
-        self.data.update_value("B", B)

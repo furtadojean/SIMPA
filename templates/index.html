@@ -1,25 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMPA</title>
-    <script src="https://unpkg.com/htmx.org@1.9.0"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-gray-200 p-10">
-    <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-5">RISC-V Simulator</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SIMPA</title>
+        <script src="https://unpkg.com/htmx.org@1.9.0"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
 
-        <form hx-post="/execute" hx-trigger="submit" hx-target="#output" class="mb-5">
-            <textarea name="code" rows="10" class="w-full p-3 border border-gray-700 bg-gray-800 text-gray-200 rounded mb-3">{{ default_code }}</textarea>
-            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Run Code</button>
-        </form>
+        <!-- CodeMirror CSS and JS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/blackboard.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/gas/gas.min.js"></script>
+        <style>
+            .CodeMirror {
+                font-size: 16px;
+            }
+            .cm-s-blackboard .CodeMirror-lines {
+                color: #E49B0F;
+            }
+            .highlight-caps {
+                color: #8470FF;
+                font-size: 1.2em
+            }
+        </style>
+    </head>
 
-        <div id="output" class="space-y-5">
-            {% include "output.html" %}
+    <body class="bg-gray-900 text-gray-200 p-10">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-5">
+                <span class="highlight-caps">SIM</span>ulador de <span class="highlight-caps">P</span>ipeline e <span class="highlight-caps">A</span>ssembly
+            </h1>
+
+            <form hx-post="/execute" hx-trigger="submit" hx-target="#output" class="mb-5">
+                <div class="p-4 bg-gray-800 text-gray-200 shadow rounded relative">
+                    <h2 class="text-xl font-semibold">Code Editor</h2>
+                    <button type="button" id="expand-toggle" class="absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Expand</button>
+                    <textarea id="code" name="code" class="hidden">{{ default_code }}</textarea>
+                    <div id="code-editor" class="mt-2"></div>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mt-3">Run Code</button>
+            </form>
+
+            <div id="output" class="space-y-5">
+                {% include "output.html" %}
+            </div>
         </div>
-    </div>
-</body>
+
+        <script>
+            const codeTextarea = document.getElementById('code');
+            const codeEditor = CodeMirror(document.getElementById('code-editor'), {
+                value: codeTextarea.value,
+                mode: "gas",
+                theme: "blackboard",
+                lineNumbers: true,
+                matchBrackets: true,
+                autoCloseBrackets: true
+            });
+
+            codeEditor.setSize(null, "30rem");
+            document.querySelector('form').addEventListener('submit', function() {
+                codeTextarea.value = codeEditor.getValue();
+            });
+
+            document.getElementById('expand-toggle').addEventListener('click', function() {
+                const isExpanded = codeEditor.getWrapperElement().classList.toggle('expanded');
+
+                if (isExpanded) {
+                    codeEditor.setSize(null, "auto");
+                    codeEditor.setSize(null, codeEditor.getScrollInfo().height + "px");
+                    this.textContent = 'Shrink';
+                } else {
+                    codeEditor.setSize(null, "30rem");
+                    this.textContent = 'Expand';
+                }
+            });
+        </script>
+    </body>
 </html>
 

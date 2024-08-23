@@ -4,7 +4,6 @@ import lib
 import io
 from contextlib import redirect_stdout
 
-
 def execute(code):
     result_info = ""
     memory_info = ""
@@ -43,7 +42,7 @@ def execute(code):
     parser.read(code, file=False)
     parser.parse()
 
-    intermediate_registers = [template.if_id(), template.id_ex(), template.ex_mem(), template.mem_wb()]
+    intermediate_registers = [template.if_id, template.id_ex, template.ex_mem, template.mem_wb]
     intermediate_register_names = ["if_id", "id_ex", "ex_mem", "mem_wb"]
     clock = 0
     def one_clock():
@@ -53,24 +52,21 @@ def execute(code):
         print("PC: ", pc.data.get_value("address"))
         for intermediate_register in intermediate_registers:
             print("Ready: ", intermediate_register_names[intermediate_registers.index(intermediate_register)])
-            intermediate_register.ready()
+            intermediate_register().ready()
             print(intermediate_register.data)
             print()
-        for intermediate_register in intermediate_registers:
-            intermediate_register.on_clock()
+        for intermediate_register in reversed(intermediate_registers):
+            intermediate_register().on_clock()
         clock += 1
     while True:
         with io.StringIO() as buf, redirect_stdout(buf):
             one_clock()
             execution_info += buf.getvalue()
         try:
-            if clock > 1 and template.mem_wb.data.get_value("IR") == (False,):
+            if clock > 1 and template.ex_mem.data.get_value("IR") == (False,):
                 break
         except:
             pass
-    for intermediate_register in intermediate_registers:
-        intermediate_register.data.clean()
-        intermediate_register.input.clean()
 
     result_info = print_unit.buffer
     with io.StringIO() as buf, redirect_stdout(buf):
@@ -78,6 +74,9 @@ def execute(code):
         print(instruction_memory.mem)
         print(data_memory.mem)
         memory_info = buf.getvalue()
+
+    template.reset()
+    template.registers.reset()
     return result_info, execution_info, memory_info
 
 if __name__ == "__main__":

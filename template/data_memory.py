@@ -15,10 +15,14 @@ class c_data_memory(component):
 
     def _compute(self):
         super()._compute()
-        data = self.input['rs2']
+        data = self.input['EX_MemData']
         address = self.input['EX_ALUResult']
 
         if self.input['EX_MemWrite'] == 1:
             self.mem.write_word(address, data)
         if self.input['EX_MemRead'] == 1:
-            self.data.update_value("LMD", self.mem.read_word(address).value)
+            try:
+                self.data.update_value("LMD", self.mem.read_word(address).value)
+            except:
+                self.data.update_value("LMD", self.mem.read_word(address))
+

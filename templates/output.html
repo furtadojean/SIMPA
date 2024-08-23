@@ -1,15 +1,34 @@
-<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded relative">
     <h2 class="text-xl font-semibold">Result</h2>
-    <pre id="result" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ result if result else '' }}</pre>
+    <button type="button" class="expanded-toggle absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Expand</button>
+    <pre id="result" class="inside mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ result if result else '' }}</pre>
 </div>
-<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded relative">
     <h2 class="text-xl font-semibold">Execution Info</h2>
-    <pre id="execution_info" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ execution_info if execution_info else '' }}</pre>
+    <button type="button" class="expanded-toggle absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Expand</button>
+    <pre id="execution_info" class="inside mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ execution_info if execution_info else '' }}</pre>
 </div>
-<div class="p-4 bg-gray-800 text-gray-200 shadow rounded">
+<div class="p-4 bg-gray-800 text-gray-200 shadow rounded relative">
     <h2 class="text-xl font-semibold">Memory Info</h2>
-    <pre id="memory_info" class="mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">
-        {{ memory_info if memory_info else '' }}
-    </pre>
+    <button type="button" class="expanded-toggle absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Expand</button>
+    <pre id="memory_info" class="inside mt-2 p-2 bg-gray-900 rounded overflow-auto max-h-[40rem]">{{ memory_info if memory_info else '' }}</pre>
 </div>
 
+    <script>
+        document.querySelectorAll('.expanded-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const container = this.parentElement
+                const inside = container.querySelector('.inside')
+                const isExpanded = container.classList.toggle('fixed');
+
+                if (isExpanded) {
+                    inside.classList.remove('max-h-[40rem]');
+                    this.textContent = 'Shrink';
+
+                } else {
+                    inside.classList.add('max-h-[40rem]');
+                    this.textContent = 'Expand';
+                }
+            });
+        });
+    </script>

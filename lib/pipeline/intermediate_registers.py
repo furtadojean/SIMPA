@@ -6,6 +6,13 @@ def get_intermediate_register():
         data = data()
         input = component_input()
 
+        @staticmethod
+        def reset():
+            prefix = intermediate_register.data.prefix
+            intermediate_register.data = data()
+            intermediate_register.data.prefix = prefix
+            intermediate_register.input = component_input()
+
         def __init__(self):
             pass
 

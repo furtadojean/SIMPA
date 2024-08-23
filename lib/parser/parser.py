@@ -25,7 +25,6 @@ class var:
 class parser:
     def __init__(self, data_mem, instr_mem):
         self.lines = []
-        self.labels = {}
         self.vars = {}
         self.data_mem = data_mem
         self.data_mem_pos = 0
@@ -56,7 +55,7 @@ class parser:
             if line[0] == 'asciz':
                 if line[1] in self.vars:
                     continue
-                v = var(var.var_type.ASCIZ, line[1], line[2].replace('"', ''))
+                v = var(var.var_type.ASCIZ, line[1], " ".join(line[2:]).replace('"', ''))
                 self.data_mem.write_word(self.data_mem_pos, v)
                 self.vars[v.name] = self.data_mem_pos
                 self.data_mem_pos += 4
@@ -75,20 +74,10 @@ class parser:
                 data.rd = line[1]
                 data.rs1 = line[2].split('(')[1][:-1] #)
                 data.imm = int(line[2].split('(')[0]) #)
-            elif line[0] == 'lb':
-                data.instr = 'lb'
-                data.rd = line[1]
-                data.rs1 = line[2].split('(')[1][:-1] #)
-                data.imm = int(line[2].split('(')[0]) #)
             elif line[0] == 'sw':
                 data.instr = 'sw'
-                data.rs1 = line[1]
-                data.rs2 = line[2].split('(')[1][:-1] #)
-                data.imm = int(line[2].split('(')[0]) #)
-            elif line[0] == 'sb':
-                data.instr = 'sb'
-                data.rs1 = line[1]
-                data.rs2 = line[2].split('(')[1][:-1] #)
+                data.rs1 = line[2].split('(')[1][:-1] #)
+                data.rs2 = line[1]
                 data.imm = int(line[2].split('(')[0]) #)
             elif line[0] == 'la':
                 data.instr = 'la'

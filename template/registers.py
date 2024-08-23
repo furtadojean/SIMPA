@@ -21,17 +21,33 @@ class registers(component):
     def __init__(self):
         super().__init__()
 
+    @staticmethod
+    def reset():
+        registers.bank = register_bank()
+
     def setup(self, inter_reg):
         self.add_dependency(inter_reg)
 
     def _compute(self):
         super()._compute()
-        if self.input['MEM_RegWrite'] == 1:
-            if self.input['MEM_MemToReg'] == 1:
-                self.bank[self.input['MEM_IR'].rd] = self.input['MEM_LMD']
+        try:
+            if self.input['MEM_RegWrite'] == 1:
+                if self.input['MEM_MemToReg'] == 1:
+                    self.bank[self.input['MEM_IR'].rd] = self.input['MEM_LMD']
+                else:
+                    self.bank[self.input['MEM_IR'].rd] = self.input['MEM_ALUResult']
             else:
-                self.bank[self.input['MEM_IR'].rd] = self.input['MEM_ALUResult']
-        else:
-            self.data.update_value("A", self.bank[self.input['IF_IR'].rs1])
-            self.data.update_value("B", self.bank[self.input['IF_IR'].rs2])
-            self.data.update_value("imm", self.input['IF_IR'].imm)
+                try:
+                    self.data.update_value("A", self.bank[self.input['IF_IR'].rs1])
+                except:
+                    pass
+                try:
+                    self.data.update_value("B", self.bank[self.input['IF_IR'].rs2])
+                except:
+                    pass
+                try:
+                    self.data.update_value("imm", self.input['IF_IR'].imm)
+                except:
+                    pass
+        except:
+            pass

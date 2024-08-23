@@ -9,3 +9,9 @@ if_id.data.prefix = "IF"
 id_ex.data.prefix = "ID"
 ex_mem.data.prefix = "EX"
 mem_wb.data.prefix = "MEM"
+
+def reset():
+    if_id.reset()
+    id_ex.reset()
+    ex_mem.reset()
+    mem_wb.reset()
