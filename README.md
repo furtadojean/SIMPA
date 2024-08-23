@@ -1,6 +1,7 @@
 # SIMulador de Pipeline e Assembly
 - Disponível em: https://simpa-hss6.onrender.com
 - Disciplina: SSC0902 - Organização e Arquitetura de Computadores
+- Para entender o conteúdo no qual se baseia, leia 'Notas de Aula.pdf'
 ![image](https://github.com/user-attachments/assets/82ca127b-067d-4caf-a4cb-f4e4c9bf3977)
 
 
